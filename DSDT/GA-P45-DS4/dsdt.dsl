@@ -1,27 +1,169 @@
 /*
  * Intel ACPI Component Architecture
- * AML Disassembler version 20080926
+ * AML Disassembler version 20090903
  *
- * Disassembly of dsdt.aml, Thu May 21 21:49:05 2009
+ * Disassembly of /Volumes/.USBBOOT/Extra/DSDT.aml, Thu Dec 10 23:04:17 2009
  *
  *
  * Original Table Header:
  *     Signature        "DSDT"
- *     Length           0x000035F3 (13811)
+ *     Length           0x0000385B (14427)
  *     Revision         0x01 **** ACPI 1.0, no 64-bit math support
- *     Checksum         0x8B
+ *     Checksum         0xB4
  *     OEM ID           "GBT   "
  *     OEM Table ID     "GBTUACPI"
  *     OEM Revision     0x00001000 (4096)
  *     Compiler ID      "INTL"
- *     Compiler Version 0x20080926 (537397542)
+ *     Compiler Version 0x20090903 (537463043)
  */
-DefinitionBlock ("dsdt.aml", "DSDT", 1, "GBT   ", "GBTUACPI", 0x00001000)
+DefinitionBlock ("/Volumes/.USBBOOT/Extra/DSDT.aml", "DSDT", 1, "GBT   ", "GBTUACPI", 0x00001000)
 {
     Scope (_PR)
     {
-        Processor (CPU0, 0x00, 0x00000410, 0x06) {}
-        Processor (CPU1, 0x01, 0x00000410, 0x06) {}
+        Processor (CPU0, 0x00, 0x00000410, 0x06)
+        {
+        	Name (_CST, Package (0x04)
+            {
+                0x03,
+                Package (0x04)
+                    {
+                        ResourceTemplate ()
+                        {
+                            Register (FFixedHW, 
+                                0x01,               // Bit Width
+                            	0x02,               // Bit Offset
+                                0x0000000000000000, // Address
+                                ,)
+                        }, 
+
+                        0x01, 
+                        0x01, 
+                        0x03E8
+                    }, 
+
+                    Package (0x04)
+                    {
+                        ResourceTemplate ()
+                        {
+                            Register (SystemIO, 
+                                0x01,               // Bit Width
+                                0x02,               // Bit Offset
+                                0x0000000000000414, // Address
+                                ,)
+                        }, 
+
+                        0x02, 
+                        0x01, 
+                        0x01F4
+                    }, 
+
+                    Package (0x04)
+                    {
+                        ResourceTemplate ()
+                        {
+                            Register (SystemIO, 
+                                0x01,               // Bit Width
+                            	0x02,               // Bit Offset
+                                0x0000000000000415, // Address
+                                ,)
+                        }, 
+
+                        0x03, 
+                        0x55, 
+                        0xFA
+                    }
+                })
+        	
+            Name (_PCT, Package (0x02)
+            {
+                ResourceTemplate ()
+                {
+                    Register (FFixedHW, 
+                        0x00,               // Bit Width
+                        0x00,               // Bit Offset
+                        0x0000000000000000, // Address
+                        ,)
+                }, 
+
+                ResourceTemplate ()
+                {
+                    Register (FFixedHW, 
+                        0x00,               // Bit Width
+                        0x00,               // Bit Offset
+                        0x0000000000000000, // Address
+                        ,)
+                }
+            })
+
+            Name (_PSS, Package (0x04)
+            {
+                Package (0x06)
+                {
+                    0x0BB5, 
+                    0xFDE8, 
+                    0x0A, 
+                    0x0A, 
+                    0x0922, 
+                    0x0922
+                }, 
+
+                Package (0x06)
+                {
+                    0x0A68, 
+                    0xD7C4, 
+                    0x0A, 
+                    0x0A, 
+                    0x081E, 
+                    0x081E
+                }, 
+
+                Package (0x06)
+                {
+                    0x091B, 
+                    0xB41D, 
+                    0x0A, 
+                    0x0A, 
+                    0x071A, 
+                    0x071A
+                }, 
+
+                Package (0x06)
+                {
+                    0x07CE, 
+                    0x92F0, 
+                    0x0A, 
+                    0x0A, 
+                    0x0616, 
+                    0x0616
+                }
+            })
+
+            Name (_PSD, Package (One)
+            {
+                Package (0x05)
+                {
+                    0x05, 
+                    Zero, 
+                    Zero, 
+                    0xFC, 
+                    0x02
+                }
+            })
+
+            Method (_PPC, 0, NotSerialized)
+            {
+                Return (Zero)
+            }
+        }
+
+        Processor (CPU1, 0x01, 0x00000410, 0x06)
+        {
+            Alias (^CPU0._PCT, _PCT)
+            Alias (^CPU0._PSS, _PSS)
+            Alias (^CPU0._PSD, _PSD)
+            Alias (^CPU0._PPC, _PPC)
+        }
+
         Processor (CPU2, 0x02, 0x00000410, 0x06) {}
         Processor (CPU3, 0x03, 0x00000410, 0x06) {}
     }
@@ -33,7 +175,7 @@ DefinitionBlock ("dsdt.aml", "DSDT", 1, "GBT   ", "GBTUACPI", 0x00001000)
         Zero, 
         Zero
     })
-    Name (SS1, Package (0x04)
+    Name (_S1, Package (0x04)
     {
         One, 
         Zero, 
@@ -134,6 +276,13 @@ DefinitionBlock ("dsdt.aml", "DSDT", 1, "GBT   ", "GBTUACPI", 0x00001000)
         APMD,   8
     }
 
+    OperationRegion (PMRS, SystemIO, 0x0430, One)
+    Field (PMRS, ByteAcc, NoLock, Preserve)
+    {
+            ,   4,
+        SLPE,   1
+    }
+
     OperationRegion (AGPS, SystemIO, 0x0438, 0x04)
     Field (AGPS, ByteAcc, NoLock, Preserve)
     {
@@ -176,7 +325,7 @@ DefinitionBlock ("dsdt.aml", "DSDT", 1, "GBT   ", "GBTUACPI", 0x00001000)
         Return (One)
     }
 
-    OperationRegion (INFO, SystemMemory, 0x000FF840, 0x02)
+    OperationRegion (INFO, SystemMemory, 0x000FF840, One)
     Field (INFO, ByteAcc, NoLock, Preserve)
     {
         KBDI,   1, 
@@ -201,22 +350,50 @@ DefinitionBlock ("dsdt.aml", "DSDT", 1, "GBT   ", "GBTUACPI", 0x00001000)
         Or (Arg0, 0xF0, Local0)
         Store (Local0, DBG1)
         OSTP ()
-        If (LEqual (Arg0, One)) {}
-        If (LEqual (Arg0, 0x03)) {}
-        If (LEqual (Arg0, 0x05))
+        If (LEqual (Arg0, 0x05)) //Sleep Fix
         {
-            Store (ESMI, Local0)
-            And (Local0, 0xFB, Local0)
-            Store (Local0, ESMI)
+            Store (0x99, SMIP)
+            Store (One, \_SB.PCI0.LPCB.AG3E)
+            Store (Zero, SLPE)
+            Sleep (0x10)
         }
-
-        If (LEqual (Arg0, 0x04))
+        Else
         {
-            If (LNot (PICF))
+            Store (Zero, \_SB.PCI0.LPCB.AG3E)
+        }
+    }
+
+    Method (DTGP, 5, NotSerialized)
+    {
+        If (LEqual (Arg0, Buffer (0x10)
+                {
+                    /* 0000 */    0xC6, 0xB7, 0xB5, 0xA0, 0x18, 0x13, 0x1C, 0x44, 
+                    /* 0008 */    0xB0, 0xC9, 0xFE, 0x69, 0x5E, 0xAF, 0x94, 0x9B
+                }))
+        {
+            If (LEqual (Arg1, One))
             {
-                Sleep (0x64)
+                If (LEqual (Arg2, Zero))
+                {
+                    Store (Buffer (One)
+                        {
+                            0x03
+                        }, Arg4)
+                    Return (One)
+                }
+
+                If (LEqual (Arg2, One))
+                {
+                    Return (One)
+                }
             }
         }
+
+        Store (Buffer (One)
+            {
+                0x00
+            }, Arg4)
+        Return (Zero)
     }
 
     Method (_WAK, 1, NotSerialized)
@@ -276,18 +453,23 @@ DefinitionBlock ("dsdt.aml", "DSDT", 1, "GBT   ", "GBTUACPI", 0x00001000)
         Notify (\_SB.PCI0.USB3, Zero)
         Notify (\_SB.PCI0.USB4, Zero)
         Notify (\_SB.PCI0.USB5, Zero)
+        Return (Package (0x02)
+        {
+            Zero, 
+            Zero
+        })
     }
 
     Scope (_SI)
     {
         Method (_MSG, 1, NotSerialized)
         {
-            Store ("Local0", Local0)
+            Store (Zero, Local0)
         }
 
         Method (_SST, 1, NotSerialized)
         {
-            Store ("Local0", Local0)
+            Store (Zero, Local0)
         }
     }
 
@@ -295,7 +477,7 @@ DefinitionBlock ("dsdt.aml", "DSDT", 1, "GBT   ", "GBTUACPI", 0x00001000)
     {
         Method (_L08, 0, NotSerialized)
         {
-            Notify (\_SB.PCI0.PX40.UAR1, 0x02)
+            Notify (\_SB.PCI0.LPCB.UAR1, 0x02)
         }
 
         Method (_L03, 0, NotSerialized)
@@ -320,8 +502,6 @@ DefinitionBlock ("dsdt.aml", "DSDT", 1, "GBT   ", "GBTUACPI", 0x00001000)
         {
             Notify (\_SB.PCI0.USB3, 0x02)
             Notify (\_SB.PWRB, 0x02)
-            Notify (\_SB.PCI0.US31, 0x02)
-            Notify (\_SB.PWRB, 0x02)
         }
 
         Method (_L05, 0, NotSerialized)
@@ -341,7 +521,7 @@ DefinitionBlock ("dsdt.aml", "DSDT", 1, "GBT   ", "GBTUACPI", 0x00001000)
             Notify (\_SB.PCI0.USBE, 0x02)
             Notify (\_SB.PCI0.USE2, 0x02)
             Notify (\_SB.PWRB, 0x02)
-            Notify (\_SB.PCI0.AZAL, 0x02)
+            Notify (\_SB.PCI0.HDEF, 0x02)
             Notify (\_SB.PCI0.IGBE, 0x02)
         }
 
@@ -391,7 +571,7 @@ DefinitionBlock ("dsdt.aml", "DSDT", 1, "GBT   ", "GBTUACPI", 0x00001000)
     {
         Device (PWRB)
         {
-            Name (_HID, EisaId ("PNP0C0C"))
+            Name (_CID, EisaId ("PNP0C0C"))
             Method (_STA, 0, NotSerialized)
             {
                 Return (0x0B)
@@ -481,8 +661,8 @@ DefinitionBlock ("dsdt.aml", "DSDT", 1, "GBT   ", "GBTUACPI", 0x00001000)
                         0xFFF00000,         // Length
                         ,, _Y00, AddressRangeMemory, TypeStatic)
                 })
-                CreateDWordField (BUF0, \_SB.PCI0._CRS._Y00._MIN, TCMM)
-                CreateDWordField (BUF0, \_SB.PCI0._CRS._Y00._LEN, TOMM)
+                CreateDWordField (BUF0, _Y00._MIN, TCMM)
+                CreateDWordField (BUF0, _Y00._LEN, TOMM)
                 Add (AMEM, 0x00040000, TCMM)
                 Add (TCMM, 0x00010000, TCMM)
                 Subtract (0xFEC00000, TCMM, TOMM)
@@ -1425,6 +1605,24 @@ DefinitionBlock ("dsdt.aml", "DSDT", 1, "GBT   ", "GBTUACPI", 0x00001000)
                         Return (API4)
                     }
                 }
+
+                Device (LAN0)
+                {
+                    Name (_ADR, Zero)
+                    Method (_DSM, 4, NotSerialized)
+                    {
+                        Store (Package (0x02)
+                            {
+                                "location", 
+                                Buffer (0x02)
+                                {
+                                    "1"
+                                }
+                            }, Local0)
+                        DTGP (Arg0, Arg1, Arg2, Arg3, RefOf (Local0))
+                        Return (Local0)
+                    }
+                }
             }
 
             Device (PEX5)
@@ -1521,6 +1719,24 @@ DefinitionBlock ("dsdt.aml", "DSDT", 1, "GBT   ", "GBTUACPI", 0x00001000)
                     Else
                     {
                         Return (API5)
+                    }
+                }
+
+                Device (LAN1)
+                {
+                    Name (_ADR, Zero)
+                    Method (_DSM, 4, NotSerialized)
+                    {
+                        Store (Package (0x02)
+                            {
+                                "location", 
+                                Buffer (0x02)
+                                {
+                                    "2"
+                                }
+                            }, Local0)
+                        DTGP (Arg0, Arg1, Arg2, Arg3, RefOf (Local0))
+                        Return (Local0)
                     }
                 }
             }
@@ -1751,13 +1967,34 @@ DefinitionBlock ("dsdt.aml", "DSDT", 1, "GBT   ", "GBTUACPI", 0x00001000)
                 }
             }
 
-            Device (PX40)
+            Device (LPCB)
             {
                 Name (_ADR, 0x001F0000)
+                Method (_DSM, 4, NotSerialized)
+                {
+                    Store (Package (0x02)
+                        {
+                            "device-id", 
+                            Buffer (0x04)
+                            {
+                                0x18, 0x3A, 0x00, 0x00
+                            }
+                        }, Local0)
+                    DTGP (Arg0, Arg1, Arg2, Arg3, RefOf (Local0))
+                    Return (Local0)
+                }
+                
+                // Sleep Fix
+                OperationRegion (LPC0, PCI_Config, 0xA4, 0x02)
+                Field (LPC0, ByteAcc, NoLock, Preserve)
+                {
+                    AG3E,   1
+                }
+
                 OperationRegion (PREV, PCI_Config, 0x08, One)
                 Scope (\)
                 {
-                    Field (\_SB.PCI0.PX40.PREV, ByteAcc, NoLock, Preserve)
+                    Field (\_SB.PCI0.LPCB.PREV, ByteAcc, NoLock, Preserve)
                     {
                         REV0,   8
                     }
@@ -1766,7 +2003,7 @@ DefinitionBlock ("dsdt.aml", "DSDT", 1, "GBT   ", "GBTUACPI", 0x00001000)
                 OperationRegion (PIRQ, PCI_Config, 0x60, 0x04)
                 Scope (\)
                 {
-                    Field (\_SB.PCI0.PX40.PIRQ, ByteAcc, NoLock, Preserve)
+                    Field (\_SB.PCI0.LPCB.PIRQ, ByteAcc, NoLock, Preserve)
                     {
                         PIRA,   8, 
                         PIRB,   8, 
@@ -1778,7 +2015,7 @@ DefinitionBlock ("dsdt.aml", "DSDT", 1, "GBT   ", "GBTUACPI", 0x00001000)
                 OperationRegion (PIR2, PCI_Config, 0x68, 0x04)
                 Scope (\)
                 {
-                    Field (\_SB.PCI0.PX40.PIR2, ByteAcc, NoLock, Preserve)
+                    Field (\_SB.PCI0.LPCB.PIR2, ByteAcc, NoLock, Preserve)
                     {
                         PIRE,   8, 
                         PIRF,   8, 
@@ -1790,7 +2027,7 @@ DefinitionBlock ("dsdt.aml", "DSDT", 1, "GBT   ", "GBTUACPI", 0x00001000)
                 OperationRegion (LPIO, PCI_Config, 0x80, 0x0E)
                 Scope (\)
                 {
-                    Field (\_SB.PCI0.PX40.LPIO, ByteAcc, NoLock, Preserve)
+                    Field (\_SB.PCI0.LPCB.LPIO, ByteAcc, NoLock, Preserve)
                     {
                         UAIO,   8, 
                         PRIO,   8, 
@@ -2144,9 +2381,7 @@ DefinitionBlock ("dsdt.aml", "DSDT", 1, "GBT   ", "GBTUACPI", 0x00001000)
                             0x00A0,             // Range Maximum
                             0x01,               // Alignment
                             0x02,               // Length
-                            )
-                        IRQNoFlags ()
-                            {2}
+                            ) 
                     })
                 }
 
@@ -2195,8 +2430,6 @@ DefinitionBlock ("dsdt.aml", "DSDT", 1, "GBT   ", "GBTUACPI", 0x00001000)
                             0x00,               // Alignment
                             0x04,               // Length
                             )
-                        IRQNoFlags ()
-                            {0}
                     })
                     Name (ATT6, ResourceTemplate ()
                     {
@@ -2246,40 +2479,12 @@ DefinitionBlock ("dsdt.aml", "DSDT", 1, "GBT   ", "GBTUACPI", 0x00001000)
                     })
                     Method (_STA, 0, NotSerialized)
                     {
-                        If (LGreaterEqual (OSFX, 0x03))
-                        {
-                            If (HPTF)
-                            {
-                                Return (0x0F)
-                            }
-                            Else
-                            {
-                                Return (Zero)
-                            }
-                        }
-                        Else
-                        {
-                            Return (Zero)
-                        }
+                        Return (0x0F)
                     }
 
                     Method (_CRS, 0, NotSerialized)
                     {
-                        If (LGreaterEqual (OSFX, 0x03))
-                        {
-                            If (HPTF)
-                            {
-                                Return (ATT3)
-                            }
-                            Else
-                            {
-                                Return (ATT4)
-                            }
-                        }
-                        Else
-                        {
-                            Return (ATT4)
-                        }
+                        Return (ATT3)
                     }
                 }
 
@@ -2292,10 +2497,8 @@ DefinitionBlock ("dsdt.aml", "DSDT", 1, "GBT   ", "GBTUACPI", 0x00001000)
                             0x0070,             // Range Minimum
                             0x0070,             // Range Maximum
                             0x00,               // Alignment
-                            0x04,               // Length
+                            0x02,               // Length
                             )
-                        IRQNoFlags ()
-                            {8}
                     })
                     Name (ATT1, ResourceTemplate ()
                     {
@@ -2303,7 +2506,7 @@ DefinitionBlock ("dsdt.aml", "DSDT", 1, "GBT   ", "GBTUACPI", 0x00001000)
                             0x0070,             // Range Minimum
                             0x0070,             // Range Maximum
                             0x00,               // Alignment
-                            0x04,               // Length
+                            0x02,               // Length
                             )
                     })
                     Method (_CRS, 0, NotSerialized)
@@ -2491,9 +2694,9 @@ DefinitionBlock ("dsdt.aml", "DSDT", 1, "GBT   ", "GBTUACPI", 0x00001000)
                             DMA (Compatibility, NotBusMaster, Transfer8, )
                                 {2}
                         })
-                        CreateByteField (BUF0, \_SB.PCI0.PX40.FDC0._CRS._Y01._MIN, IOLO)
+                        CreateByteField (BUF0, _Y01._MIN, IOLO)
                         CreateByteField (BUF0, 0x03, IOHI)
-                        CreateByteField (BUF0, \_SB.PCI0.PX40.FDC0._CRS._Y01._MAX, IORL)
+                        CreateByteField (BUF0, _Y01._MAX, IORL)
                         CreateByteField (BUF0, 0x05, IORH)
                         ENFG ()
                         EXFG ()
@@ -2591,11 +2794,11 @@ DefinitionBlock ("dsdt.aml", "DSDT", 1, "GBT   ", "GBTUACPI", 0x00001000)
                             IRQNoFlags (_Y03)
                                 {}
                         })
-                        CreateByteField (BUF1, \_SB.PCI0.PX40.UAR1._CRS._Y02._MIN, IOLO)
+                        CreateByteField (BUF1, _Y02._MIN, IOLO)
                         CreateByteField (BUF1, 0x03, IOHI)
-                        CreateByteField (BUF1, \_SB.PCI0.PX40.UAR1._CRS._Y02._MAX, IORL)
+                        CreateByteField (BUF1, _Y02._MAX, IORL)
                         CreateByteField (BUF1, 0x05, IORH)
-                        CreateWordField (BUF1, \_SB.PCI0.PX40.UAR1._CRS._Y03._INT, IRQW)
+                        CreateWordField (BUF1, _Y03._INT, IRQW)
                         ENFG ()
                         Store (One, LDN)
                         Store (IOAL, IOLO)
@@ -2856,7 +3059,7 @@ DefinitionBlock ("dsdt.aml", "DSDT", 1, "GBT   ", "GBTUACPI", 0x00001000)
                     })
                 }
 
-                Scope (\_SB.PCI0.PX40)
+                Scope (\_SB.PCI0.LPCB)
                 {
                     OperationRegion (CCCC, SystemMemory, 0x000FE2BC, 0x05)
                     Field (CCCC, ByteAcc, NoLock, Preserve)
@@ -2968,52 +3171,156 @@ DefinitionBlock ("dsdt.aml", "DSDT", 1, "GBT   ", "GBTUACPI", 0x00001000)
 
                                 If (LEqual (Arg2, One))
                                 {
-                                    Return (Buffer (0x04)
+                                    If (LEqual (SizeOf (Arg3), Zero))
                                     {
-                                        "1.0"
-                                    })
+                                        Return (Buffer (0x04)
+                                        {
+                                            "1.0"
+                                        })
+                                    }
+
                                     Return (One)
                                 }
 
                                 If (LEqual (Arg2, 0x02))
                                 {
-                                    Store (DerefOf (Index (Arg3, Zero)), Local0)
-                                    If (LLessEqual (Local0, 0x0E))
+                                    If (LNotEqual (TPRS, Zero))
                                     {
-                                        If (LEqual (Local0, 0x0C))
+                                        If (LEqual (DerefOf (Index (Arg3, Zero)), Zero))
                                         {
-                                            Store (Zero, Local0)
+                                            Store (0xF0, SCP)
+                                            Store (Zero, PPRQ)
+                                            Store (0xF1, SCP)
+                                            Return (Zero)
                                         }
 
-                                        If (LEqual (Local0, 0x0D))
+                                        If (LEqual (DerefOf (Index (Arg3, Zero)), One))
                                         {
-                                            Store (Zero, Local0)
+                                            Store (0xF0, SCP)
+                                            Store (One, PPRQ)
+                                            Store (0xF1, SCP)
+                                            Return (Zero)
                                         }
 
-                                        Store (Local0, PRQC)
-                                        Return (Zero)
+                                        If (LEqual (DerefOf (Index (Arg3, Zero)), 0x02))
+                                        {
+                                            Store (0xF0, SCP)
+                                            Store (0x02, PPRQ)
+                                            Store (0xF1, SCP)
+                                            Return (Zero)
+                                        }
+
+                                        If (LEqual (DerefOf (Index (Arg3, Zero)), 0x03))
+                                        {
+                                            Store (0xF0, SCP)
+                                            Store (0x03, PPRQ)
+                                            Store (0xF1, SCP)
+                                            Return (Zero)
+                                        }
+
+                                        If (LEqual (DerefOf (Index (Arg3, Zero)), 0x04))
+                                        {
+                                            Store (0xF0, SCP)
+                                            Store (0x04, PPRQ)
+                                            Store (0xF1, SCP)
+                                            Return (Zero)
+                                        }
+
+                                        If (LEqual (DerefOf (Index (Arg3, Zero)), 0x05))
+                                        {
+                                            Store (0xF0, SCP)
+                                            Store (0x05, PPRQ)
+                                            Store (0xF1, SCP)
+                                            Return (Zero)
+                                        }
+
+                                        If (LEqual (DerefOf (Index (Arg3, Zero)), 0x06))
+                                        {
+                                            Store (0xF0, SCP)
+                                            Store (0x06, PPRQ)
+                                            Store (0xF1, SCP)
+                                            Return (Zero)
+                                        }
+
+                                        If (LEqual (DerefOf (Index (Arg3, Zero)), 0x07))
+                                        {
+                                            Store (0xF0, SCP)
+                                            Store (0x07, PPRQ)
+                                            Store (0xF1, SCP)
+                                            Return (Zero)
+                                        }
+
+                                        If (LEqual (DerefOf (Index (Arg3, Zero)), 0x08))
+                                        {
+                                            Store (0xF0, SCP)
+                                            Store (0x08, PPRQ)
+                                            Store (0xF1, SCP)
+                                            Return (Zero)
+                                        }
+
+                                        If (LEqual (DerefOf (Index (Arg3, Zero)), 0x09))
+                                        {
+                                            Store (0xF0, SCP)
+                                            Store (0x09, PPRQ)
+                                            Store (0xF1, SCP)
+                                            Return (Zero)
+                                        }
+
+                                        If (LEqual (DerefOf (Index (Arg3, Zero)), 0x0A))
+                                        {
+                                            Store (0xF0, SCP)
+                                            Store (0x0A, PPRQ)
+                                            Store (0xF1, SCP)
+                                            Return (Zero)
+                                        }
+
+                                        If (LEqual (DerefOf (Index (Arg3, Zero)), 0x0B))
+                                        {
+                                            Store (0xF0, SCP)
+                                            Store (0x0B, PPRQ)
+                                            Store (0xF1, SCP)
+                                            Return (Zero)
+                                        }
+
+                                        If (LEqual (DerefOf (Index (Arg3, Zero)), 0x0C))
+                                        {
+                                            Store (0xF0, SCP)
+                                            Store (0x0C, PPRQ)
+                                            Store (0xF1, SCP)
+                                            Return (One)
+                                        }
+
+                                        If (LEqual (DerefOf (Index (Arg3, Zero)), 0x0D))
+                                        {
+                                            Store (0xF0, SCP)
+                                            Store (0x0D, PPRQ)
+                                            Store (0xF1, SCP)
+                                            Return (One)
+                                        }
+
+                                        If (LEqual (DerefOf (Index (Arg3, Zero)), 0x0E))
+                                        {
+                                            Store (0xF0, SCP)
+                                            Store (0x0E, PPRQ)
+                                            Store (0xF1, SCP)
+                                            Return (Zero)
+                                        }
+
+                                        Return (One)
                                     }
 
                                     Return (One)
                                 }
 
-                                Return (One)
                                 If (LEqual (Arg2, 0x03))
                                 {
-                                    If (LEqual (PPRP, Zero))
+                                    Name (TMP1, Package (0x02)
                                     {
-                                        Return (Package (0x02)
-                                        {
-                                            Zero, 
-                                            PPRQ
-                                        })
-                                    }
-
-                                    Return (Package (0x02)
-                                    {
-                                        One, 
-                                        Zero
+                                        Zero, 
+                                        Ones
                                     })
+                                    Store (PPRQ, Index (TMP1, One))
+                                    Return (TMP1)
                                 }
 
                                 If (LEqual (Arg2, 0x04))
@@ -3091,7 +3398,13 @@ DefinitionBlock ("dsdt.aml", "DSDT", 1, "GBT   ", "GBTUACPI", 0x00001000)
                                 0x0400,             // Range Minimum
                                 0x0400,             // Range Maximum
                                 0x01,               // Alignment
-                                0xC0,               // Length
+                                0xD0,               // Length
+                                )
+                            IO (Decode16,
+                                0x04D2,             // Range Minimum
+                                0x04D2,             // Range Maximum
+                                0x01,               // Alignment
+                                0x2E,               // Length
                                 )
                         })
                         Return (BUF0)
@@ -3171,26 +3484,6 @@ DefinitionBlock ("dsdt.aml", "DSDT", 1, "GBT   ", "GBTUACPI", 0x00001000)
 
             Device (USB3)
             {
-                Name (_ADR, 0x001D0003)
-                Method (_S3D, 0, NotSerialized)
-                {
-                    If (LEqual (OSFL, 0x02))
-                    {
-                        Return (0x02)
-                    }
-
-                    Return (0x03)
-                }
-
-                Name (_PRW, Package (0x02)
-                {
-                    0x0E, 
-                    0x03
-                })
-            }
-
-            Device (US31)
-            {
                 Name (_ADR, 0x001A0000)
                 Method (_S3D, 0, NotSerialized)
                 {
@@ -3267,6 +3560,25 @@ DefinitionBlock ("dsdt.aml", "DSDT", 1, "GBT   ", "GBTUACPI", 0x00001000)
                     0x0D, 
                     0x03
                 })
+                Method (_DSM, 4, NotSerialized)
+                {
+                    Store (Package (0x04)
+                        {
+                            "AAPL,clock-id", 
+                            Buffer (One)
+                            {
+                                0x02
+                            }, 
+
+                            "device_type", 
+                            Buffer (0x05)
+                            {
+                                "EHCI"
+                            }
+                        }, Local0)
+                    DTGP (Arg0, Arg1, Arg2, Arg3, RefOf (Local0))
+                    Return (Local0)
+                }
             }
 
             Device (USE2)
@@ -3287,6 +3599,25 @@ DefinitionBlock ("dsdt.aml", "DSDT", 1, "GBT   ", "GBTUACPI", 0x00001000)
                     0x0D, 
                     0x03
                 })
+                Method (_DSM, 4, NotSerialized)
+                {
+                    Store (Package (0x04)
+                        {
+                            "AAPL,clock-id", 
+                            Buffer (One)
+                            {
+                                0x02
+                            }, 
+
+                            "device_type", 
+                            Buffer (0x05)
+                            {
+                                "EHCI"
+                            }
+                        }, Local0)
+                    DTGP (Arg0, Arg1, Arg2, Arg3, RefOf (Local0))
+                    Return (Local0)
+                }
             }
 
             Device (IDE1)
@@ -4104,9 +4435,9 @@ DefinitionBlock ("dsdt.aml", "DSDT", 1, "GBT   ", "GBTUACPI", 0x00001000)
                 }
             }
 
-            Device (AZAL)
+            Device (HDEF)
             {
-                Name (_ADR, 0x001B0000)
+             /*   Name (_ADR, 0x001B0000)
                 Method (_PRW, 0, NotSerialized)
                 {
                     Return (Package (0x02)
@@ -4115,6 +4446,23 @@ DefinitionBlock ("dsdt.aml", "DSDT", 1, "GBT   ", "GBTUACPI", 0x00001000)
                         0x05
                     })
                 }
+
+                Method (_DSM, 4, NotSerialized)
+                {
+                    Store (Package (0x04)
+                        {
+                            "layout-id", 
+                            Buffer (0x04)
+                            {
+                                0x79, 0x03, 0x00, 0x00
+                            }, 
+
+                            "PinConfigurations", 
+                            Buffer (Zero) {}
+                        }, Local0)
+                    DTGP (Arg0, Arg1, Arg2, Arg3, RefOf (Local0))
+                    Return (Local0)
+                }*/
             }
 
             Name (BUFA, ResourceTemplate ()
@@ -4546,19 +4894,19 @@ DefinitionBlock ("dsdt.aml", "DSDT", 1, "GBT   ", "GBTUACPI", 0x00001000)
                         0x00010000,         // Address Length
                         _Y09)
                 })
-                CreateDWordField (BUF0, \_SB.MEM._CRS._Y04._BAS, ACMM)
-                CreateDWordField (BUF0, \_SB.MEM._CRS._Y04._LEN, ASSM)
-                CreateDWordField (BUF0, \_SB.MEM._CRS._Y05._BAS, RMA1)
-                CreateDWordField (BUF0, \_SB.MEM._CRS._Y05._LEN, RSS1)
-                CreateDWordField (BUF0, \_SB.MEM._CRS._Y06._BAS, RMA2)
-                CreateDWordField (BUF0, \_SB.MEM._CRS._Y06._LEN, RSS2)
-                CreateDWordField (BUF0, \_SB.MEM._CRS._Y07._BAS, RMA3)
-                CreateDWordField (BUF0, \_SB.MEM._CRS._Y07._LEN, RSS3)
-                CreateDWordField (BUF0, \_SB.MEM._CRS._Y08._BAS, RMA4)
-                CreateDWordField (BUF0, \_SB.MEM._CRS._Y08._LEN, RSS4)
-                CreateDWordField (BUF0, \_SB.MEM._CRS._Y09._BAS, ERMA)
-                CreateDWordField (BUF0, \_SB.MEM._CRS._Y09._LEN, ERMS)
-                CreateDWordField (BUF0, \_SB.MEM._CRS._Y0A._LEN, EXTM)
+                CreateDWordField (BUF0, _Y04._BAS, ACMM)
+                CreateDWordField (BUF0, _Y04._LEN, ASSM)
+                CreateDWordField (BUF0, _Y05._BAS, RMA1)
+                CreateDWordField (BUF0, _Y05._LEN, RSS1)
+                CreateDWordField (BUF0, _Y06._BAS, RMA2)
+                CreateDWordField (BUF0, _Y06._LEN, RSS2)
+                CreateDWordField (BUF0, _Y07._BAS, RMA3)
+                CreateDWordField (BUF0, _Y07._LEN, RSS3)
+                CreateDWordField (BUF0, _Y08._BAS, RMA4)
+                CreateDWordField (BUF0, _Y08._LEN, RSS4)
+                CreateDWordField (BUF0, _Y09._BAS, ERMA)
+                CreateDWordField (BUF0, _Y09._LEN, ERMS)
+                CreateDWordField (BUF0, _Y0A._LEN, EXTM)
                 Subtract (AMEM, 0x00100000, EXTM)
                 If (LNotEqual (ROM1, Zero))
                 {
@@ -4678,7 +5026,7 @@ DefinitionBlock ("dsdt.aml", "DSDT", 1, "GBT   ", "GBTUACPI", 0x00001000)
                 Name (BUF0, ResourceTemplate ()
                 {
                     Memory32Fixed (ReadWrite,
-                        0xE0000000,         // Address Base
+                        0xF4000000,         // Address Base
                         0x04000000,         // Address Length
                         )
                 })
