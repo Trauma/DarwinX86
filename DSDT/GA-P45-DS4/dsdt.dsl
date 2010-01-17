@@ -17,7 +17,9 @@
  *     Compiler Version 0x20090903 (537463043)
  */
 DefinitionBlock ("/Volumes/.USBBOOT/Extra/DSDT.aml", "DSDT", 1, "GBT   ", "GBTUACPI", 0x00001000)
-{	
+{
+	External (CFGD)
+	
     Scope (_PR)
     {
         Processor (CPU0, 0x00, 0x00000410, 0x06)
@@ -4456,7 +4458,7 @@ DefinitionBlock ("/Volumes/.USBBOOT/Extra/DSDT.aml", "DSDT", 1, "GBT   ", "GBTUA
 
             Device (HDEF)
             {
-             /*   Name (_ADR, 0x001B0000)
+                Name (_ADR, 0x001B0000)
                 Method (_PRW, 0, NotSerialized)
                 {
                     Return (Package (0x02)
@@ -4473,7 +4475,7 @@ DefinitionBlock ("/Volumes/.USBBOOT/Extra/DSDT.aml", "DSDT", 1, "GBT   ", "GBTUA
                             "layout-id", 
                             Buffer (0x04)
                             {
-                                0x79, 0x03, 0x00, 0x00
+                                0x0c, 0x00, 0x00, 0x00
                             }, 
 
                             "PinConfigurations", 
@@ -4481,7 +4483,7 @@ DefinitionBlock ("/Volumes/.USBBOOT/Extra/DSDT.aml", "DSDT", 1, "GBT   ", "GBTUA
                         }, Local0)
                     DTGP (Arg0, Arg1, Arg2, Arg3, RefOf (Local0))
                     Return (Local0)
-                }*/
+                }
             }
 
             Name (BUFA, ResourceTemplate ()
