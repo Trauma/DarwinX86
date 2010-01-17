@@ -17,9 +17,7 @@
  *     Compiler Version 0x20090903 (537463043)
  */
 DefinitionBlock ("/Volumes/.USBBOOT/Extra/DSDT.aml", "DSDT", 1, "GBT   ", "GBTUACPI", 0x00001000)
-{
-	External (CFGD)
-	
+{	
     Scope (_PR)
     {
         Processor (CPU0, 0x00, 0x00000410, 0x06)
