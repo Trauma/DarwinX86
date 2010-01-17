@@ -18,62 +18,83 @@
  */
 DefinitionBlock ("/Volumes/.USBBOOT/Extra/DSDT.aml", "DSDT", 1, "GBT   ", "GBTUACPI", 0x00001000)
 {
+	External (CFGD)
+	
     Scope (_PR)
     {
         Processor (CPU0, 0x00, 0x00000410, 0x06)
         {
-        	Name (_CST, Package (0x04)
-            {
-                0x03,
-                Package (0x04)
-                    {
-                        ResourceTemplate ()
-                        {
-                            Register (FFixedHW, 
-                                0x01,               // Bit Width
-                            	0x02,               // Bit Offset
-                                0x0000000000000000, // Address
-                                ,)
-                        }, 
-
-                        0x01, 
-                        0x01, 
-                        0x03E8
-                    }, 
-
-                    Package (0x04)
-                    {
-                        ResourceTemplate ()
-                        {
-                            Register (SystemIO, 
-                                0x01,               // Bit Width
-                                0x02,               // Bit Offset
-                                0x0000000000000414, // Address
-                                ,)
-                        }, 
-
-                        0x02, 
-                        0x01, 
-                        0x01F4
-                    }, 
-
-                    Package (0x04)
-                    {
-                        ResourceTemplate ()
-                        {
-                            Register (SystemIO, 
-                                0x01,               // Bit Width
-                            	0x02,               // Bit Offset
-                                0x0000000000000415, // Address
-                                ,)
-                        }, 
-
-                        0x03, 
-                        0x55, 
-                        0xFA
-                    }
-                })
-        	
+        	Method (_CST, 0, NotSerialized)
+	        {	            
+	               Return (Package (0x05)
+	               {
+	                   0x04, 
+	                   Package (0x04)
+	                   {
+	                       ResourceTemplate ()
+	                       {
+	                           Register (FFixedHW, 
+	                               One,               // Bit Width
+	                               0x02,               // Bit Offset
+	                               0x0000000000000000, // Address
+	                               ,)
+	                       }, 
+	
+	                       One, 
+	                       One, 
+	                       0x03E8
+	                   }, 
+	
+	                   Package (0x04)
+	                   {
+	                       ResourceTemplate ()
+	                       {
+	                           Register (SystemIO, 
+	                               0x08,               // Bit Width
+	                               0x00,               // Bit Offset
+	                               0x0000000000000414, // Address
+	                               ,)
+	                       }, 
+	
+	                       0x02, 
+	                       One, 
+	                       0x01F4
+	                   }, 
+	
+	                   Package (0x04)
+	                   {
+	                       ResourceTemplate ()
+	                       {
+	                           Register (SystemIO, 
+	                               0x08,               // Bit Width
+	                               0x00,               // Bit Offset
+	                               0x0000000000000415, // Address
+	                               ,)
+	                       }, 
+	
+	                       0x03, 
+	                       0x55, 
+	                       0xFA
+	                   },    
+	                       
+	                   Package (0x04)
+	                   {
+	                       ResourceTemplate ()
+	                       {
+	                           Register (SystemIO, 
+	                               0x08,               // Bit Width
+	                               0x00,               // Bit Offset
+	                               0x0000000000000416, // Address
+	                               ,)
+	                       }, 
+	
+	                       0x03, 
+	                       0x96, 
+	                       0x64
+	                   }
+	               })
+	        }
+        		
             Name (_PCT, Package (0x02)
             {
                 ResourceTemplate ()
@@ -3567,7 +3588,7 @@ DefinitionBlock ("/Volumes/.USBBOOT/Extra/DSDT.aml", "DSDT", 1, "GBT   ", "GBTUA
                             "AAPL,clock-id", 
                             Buffer (One)
                             {
-                                0x02
+                                One
                             }, 
 
                             "device_type", 
