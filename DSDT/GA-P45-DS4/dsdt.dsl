@@ -1,30 +1,30 @@
 /*
  * Intel ACPI Component Architecture
- * AML Disassembler version 20091214
+ * AML Disassembler version 20090903
  *
- * Disassembly of /Users/tom/Desktop/ACPIDump/DSDT.aml, Sun Jan 31 17:11:13 2010
+ * Disassembly of /Volumes/.USBBOOT/Extra/DSDT.aml, Thu Dec 10 23:04:17 2009
  *
  *
  * Original Table Header:
  *     Signature        "DSDT"
- *     Length           0x00003BA9 (15273)
+ *     Length           0x0000385B (14427)
  *     Revision         0x01 **** ACPI 1.0, no 64-bit math support
- *     Checksum         0xA8
+ *     Checksum         0xB4
  *     OEM ID           "GBT   "
  *     OEM Table ID     "GBTUACPI"
  *     OEM Revision     0x00001000 (4096)
  *     Compiler ID      "INTL"
- *     Compiler Version 0x20091214 (537465364)
+ *     Compiler Version 0x20090903 (537463043)
  */
-DefinitionBlock ("/Users/tom/Desktop/ACPIDump/DSDT.aml", "DSDT", 1, "GBT   ", "GBTUACPI", 0x00001000)
-{
+DefinitionBlock ("/Volumes/.USBBOOT/Extra/DSDT.aml", "DSDT", 1, "GBT   ", "GBTUACPI", 0x00001000)
+{    	
     Scope (_PR)
     {
         Processor (CPU0, 0x00, 0x00000410, 0x06)
-        {
-            Method (_CST, 0, NotSerialized)
-            {
-                Return (Package (0x04)
+        {	        
+        	Method (_CST, 0, NotSerialized)
+	        {
+	        	Return (Package (0x04)
                 {
                     0x03, 
                     Package (0x04)
@@ -32,7 +32,7 @@ DefinitionBlock ("/Users/tom/Desktop/ACPIDump/DSDT.aml", "DSDT", 1, "GBT   ", "G
                         ResourceTemplate ()
                         {
                             Register (FFixedHW, 
-                                0x01,               // Bit Width
+                                One,               // Bit Width
                                 0x02,               // Bit Offset
                                 0x0000000000000000, // Address
                                 ,)
@@ -67,7 +67,7 @@ DefinitionBlock ("/Users/tom/Desktop/ACPIDump/DSDT.aml", "DSDT", 1, "GBT   ", "G
                                 0x08,               // Bit Width
                                 0x00,               // Bit Offset
                                 0x0000000000000415, // Address
-                                ,)
+                               ,)
                         }, 
 
                         0x03, 
@@ -76,7 +76,7 @@ DefinitionBlock ("/Users/tom/Desktop/ACPIDump/DSDT.aml", "DSDT", 1, "GBT   ", "G
                     }
                 })
             }
-
+        		
             Name (_PCT, Package (0x02)
             {
                 ResourceTemplate ()
@@ -97,6 +97,7 @@ DefinitionBlock ("/Users/tom/Desktop/ACPIDump/DSDT.aml", "DSDT", 1, "GBT   ", "G
                         ,)
                 }
             })
+
             Name (_PSS, Package (0x04)
             {
                 Package (0x06)
@@ -139,6 +140,7 @@ DefinitionBlock ("/Users/tom/Desktop/ACPIDump/DSDT.aml", "DSDT", 1, "GBT   ", "G
                     0x0616
                 }
             })
+
             Name (_PSD, Package (One)
             {
                 Package (0x05)
@@ -150,6 +152,7 @@ DefinitionBlock ("/Users/tom/Desktop/ACPIDump/DSDT.aml", "DSDT", 1, "GBT   ", "G
                     0x02
                 }
             })
+
             Method (_PPC, 0, NotSerialized)
             {
                 Return (Zero)
@@ -158,7 +161,7 @@ DefinitionBlock ("/Users/tom/Desktop/ACPIDump/DSDT.aml", "DSDT", 1, "GBT   ", "G
 
         Processor (CPU1, 0x01, 0x00000410, 0x06)
         {
-            Alias (^CPU0._CST, _CST)
+        	Alias (^CPU0._CST, _CST)
             Alias (^CPU0._PCT, _PCT)
             Alias (^CPU0._PSS, _PSS)
             Alias (^CPU0._PSD, _PSD)
@@ -280,7 +283,7 @@ DefinitionBlock ("/Users/tom/Desktop/ACPIDump/DSDT.aml", "DSDT", 1, "GBT   ", "G
     OperationRegion (PMRS, SystemIO, 0x0430, One)
     Field (PMRS, ByteAcc, NoLock, Preserve)
     {
-            ,   4, 
+            ,   4,
         SLPE,   1
     }
 
@@ -355,13 +358,15 @@ DefinitionBlock ("/Users/tom/Desktop/ACPIDump/DSDT.aml", "DSDT", 1, "GBT   ", "G
         If (LEqual (Arg0, 0x03)) {}
         If (LEqual (Arg0, 0x05))
         {
-            Store (One, \_SB.PCI0.LPCB.AG3E)
+            Store (One, \_SB.PCI0.LPCB.AG3E) // Return to S5 after a power failure
+                                             // Mimic "Start up automatically after power failure" checkbox
+                                             // on Energy Saver (Preferences).
             Store (Zero, SLPE)
             Sleep (0x10)
         }
         Else
         {
-            Store (Zero, \_SB.PCI0.LPCB.AG3E)
+            Store (Zero, \_SB.PCI0.LPCB.AG3E )   // Resume after sleep fix
         }
 
         If (LEqual (Arg0, 0x04))
@@ -377,7 +382,7 @@ DefinitionBlock ("/Users/tom/Desktop/ACPIDump/DSDT.aml", "DSDT", 1, "GBT   ", "G
     {
         If (LEqual (Arg0, Buffer (0x10)
                 {
-                    /* 0000 */    0xC6, 0xB7, 0xB5, 0xA0, 0x18, 0x13, 0x1C, 0x44, 
+                    /* 0000 */    0xC6, 0xB7, 0xB5, 0xA0, 0x18, 0x13, 0x1C, 0x44,
                     /* 0008 */    0xB0, 0xC9, 0xFE, 0x69, 0x5E, 0xAF, 0x94, 0x9B
                 }))
         {
@@ -579,14 +584,14 @@ DefinitionBlock ("/Users/tom/Desktop/ACPIDump/DSDT.aml", "DSDT", 1, "GBT   ", "G
 
     Scope (_SB)
     {
-        Method (_INI, 0, NotSerialized)
-        {
+        Method (_INI, 0, NotSerialized) {
+            // Fix EHCI Wake Up @ Boot
             Store (One, ^PCI0.EHC1.WRTA)
-            Store (0x19, ^PCI0.EHC1.PMES)
-            Store (Zero, ^PCI0.EHC1.WRTA)
+            Store (0x19,^PCI0.EHC1.PMES) // Underpower patch
+            Store (Zero,^PCI0.EHC1.WRTA)
             Store (One, ^PCI0.EHC2.WRTA)
-            Store (0x19, ^PCI0.EHC2.PMES)
-            Store (Zero, ^PCI0.EHC2.WRTA)
+            Store (0x19,^PCI0.EHC2.PMES) // Underpowered patch
+            Store (Zero,^PCI0.EHC2.WRTA)
         }
 
         Device (PWRB)
@@ -681,8 +686,8 @@ DefinitionBlock ("/Users/tom/Desktop/ACPIDump/DSDT.aml", "DSDT", 1, "GBT   ", "G
                         0xFFF00000,         // Length
                         ,, _Y00, AddressRangeMemory, TypeStatic)
                 })
-                CreateDWordField (BUF0, \_SB.PCI0._CRS._Y00._MIN, TCMM)
-                CreateDWordField (BUF0, \_SB.PCI0._CRS._Y00._LEN, TOMM)
+                CreateDWordField (BUF0, _Y00._MIN, TCMM)
+                CreateDWordField (BUF0, _Y00._LEN, TOMM)
                 Add (AMEM, 0x00040000, TCMM)
                 Add (TCMM, 0x00010000, TCMM)
                 Subtract (0xFEC00000, TCMM, TOMM)
@@ -1985,43 +1990,45 @@ DefinitionBlock ("/Users/tom/Desktop/ACPIDump/DSDT.aml", "DSDT", 1, "GBT   ", "G
                         0x05
                     })
                 }
-
-                Device (FRWR)
+                
+                // FireWire Power conservation error & hot plug fix.
+                Device (FRWR)  // Added device for Texas Instruments TSB43AB23 IEEE-1394a-2000 Controller
                 {
-                    Name (_ADR, 0x04060000)
-                    Name (_GPE, 0x0B)
+                    Name (_ADR, 0x04060000)  // Reported by 'lspci'
+                    Name (_GPE, 0x0B)        // Callback to (_GPE) Method (_L0B) for (HUB0)
                     Method (_DSM, 4, NotSerialized)
                     {
                         Store (Package (0x06)
+                        {
+                            "built-in",
+                            Buffer (One)
                             {
-                                "built-in", 
-                                Buffer (One)
-                                {
-                                    0x00
-                                }, 
-
-                                "fwhub", 
-                                Buffer (0x04)
-                                {
-                                    0x00, 0x00, 0x00, 0x00
-                                }, 
-
-                                "device-id", 
-                                Buffer (0x04)
-                                {
-                                    0x3F, 0x82, 0x00, 0x00
-                                }
-                            }, Local0)
+                                Zero
+                            },
+                            "fwhub",
+                            Buffer (0x04)
+                            {
+                                0x00, 0x00, 0x00, 0x00
+                            },
+                            "device-id",
+                            Buffer (0x04)
+                            {
+                                0x3f, 0x82, 0x00, 0x00  // MacPro4,1 FireWire device-id
+                            }
+                        }, Local0)
                         DTGP (Arg0, Arg1, Arg2, Arg3, RefOf (Local0))
                         Return (Local0)
                     }
                 }
             }
 
-            Device (LPCB)
+            Device (LPCB) // Rename from PX40
             {
                 Name (_ADR, 0x001F0000)
-                Method (_DSM, 4, NotSerialized)
+
+                Method (_DSM, 4, NotSerialized) // Inject device-id to load AppleLPC
+                                                // using a device (3A18) near to our
+                                                // own device id (3A16)
                 {
                     Store (Package (0x02)
                         {
@@ -2035,10 +2042,10 @@ DefinitionBlock ("/Users/tom/Desktop/ACPIDump/DSDT.aml", "DSDT", 1, "GBT   ", "G
                     Return (Local0)
                 }
 
-                OperationRegion (LPC0, PCI_Config, 0xA4, 0x02)
-                Field (LPC0, ByteAcc, NoLock, Preserve)
-                {
-                    AG3E,   1
+                // For _PTS to fix resume after sleep
+                OperationRegion (LPC0, PCI_Config, 0xA4, 0x02)    // General PM Configuration 3 Register (ICH10.pdf / 13.8.1.3 / page 454)
+                Field (LPC0, ByteAcc, NoLock, Preserve) {
+                    AG3E, 1    // Bit 0 Ð AFTERG3_EN
                 }
 
                 OperationRegion (PREV, PCI_Config, 0x08, One)
@@ -2432,6 +2439,9 @@ DefinitionBlock ("/Users/tom/Desktop/ACPIDump/DSDT.aml", "DSDT", 1, "GBT   ", "G
                             0x01,               // Alignment
                             0x02,               // Length
                             )
+                        /* No IRQ so AppleLPC work fine */
+                        /* IRQNoFlags ()
+                            {2} */
                     })
                 }
 
@@ -2494,7 +2504,7 @@ DefinitionBlock ("/Users/tom/Desktop/ACPIDump/DSDT.aml", "DSDT", 1, "GBT   ", "G
                     })
                     Method (_CRS, 0, NotSerialized)
                     {
-                        Return (ATT6)
+                        Return (ATT6) /* No IRQ so AppleLPC work fine */
                     }
                 }
 
@@ -2537,8 +2547,7 @@ DefinitionBlock ("/Users/tom/Desktop/ACPIDump/DSDT.aml", "DSDT", 1, "GBT   ", "G
                             0x00,               // Alignment
                             0x02,               // Length
                             )
-                        IRQNoFlags ()
-                            {8}
+                        IRQNoFlags () {8}
                     })
                     Name (ATT1, ResourceTemplate ()
                     {
@@ -2734,9 +2743,9 @@ DefinitionBlock ("/Users/tom/Desktop/ACPIDump/DSDT.aml", "DSDT", 1, "GBT   ", "G
                             DMA (Compatibility, NotBusMaster, Transfer8, )
                                 {2}
                         })
-                        CreateByteField (BUF0, \_SB.PCI0.LPCB.FDC0._CRS._Y01._MIN, IOLO)
+                        CreateByteField (BUF0, _Y01._MIN, IOLO)
                         CreateByteField (BUF0, 0x03, IOHI)
-                        CreateByteField (BUF0, \_SB.PCI0.LPCB.FDC0._CRS._Y01._MAX, IORL)
+                        CreateByteField (BUF0, _Y01._MAX, IORL)
                         CreateByteField (BUF0, 0x05, IORH)
                         ENFG ()
                         EXFG ()
@@ -2834,11 +2843,11 @@ DefinitionBlock ("/Users/tom/Desktop/ACPIDump/DSDT.aml", "DSDT", 1, "GBT   ", "G
                             IRQNoFlags (_Y03)
                                 {}
                         })
-                        CreateByteField (BUF1, \_SB.PCI0.LPCB.UAR1._CRS._Y02._MIN, IOLO)
+                        CreateByteField (BUF1, _Y02._MIN, IOLO)
                         CreateByteField (BUF1, 0x03, IOHI)
-                        CreateByteField (BUF1, \_SB.PCI0.LPCB.UAR1._CRS._Y02._MAX, IORL)
+                        CreateByteField (BUF1, _Y02._MAX, IORL)
                         CreateByteField (BUF1, 0x05, IORH)
-                        CreateWordField (BUF1, \_SB.PCI0.LPCB.UAR1._CRS._Y03._INT, IRQW)
+                        CreateWordField (BUF1, _Y03._INT, IRQW)
                         ENFG ()
                         Store (One, LDN)
                         Store (IOAL, IOLO)
@@ -3462,7 +3471,7 @@ DefinitionBlock ("/Users/tom/Desktop/ACPIDump/DSDT.aml", "DSDT", 1, "GBT   ", "G
                 })
             }
 
-            Device (UHC1)
+            Device (UHC1) // Rename from USB0
             {
                 Name (_ADR, 0x001D0000)
                 Method (_S3D, 0, NotSerialized)
@@ -3482,7 +3491,7 @@ DefinitionBlock ("/Users/tom/Desktop/ACPIDump/DSDT.aml", "DSDT", 1, "GBT   ", "G
                 })
             }
 
-            Device (UHC2)
+            Device (UHC2) // Rename from USB1
             {
                 Name (_ADR, 0x001D0001)
                 Method (_S3D, 0, NotSerialized)
@@ -3502,7 +3511,7 @@ DefinitionBlock ("/Users/tom/Desktop/ACPIDump/DSDT.aml", "DSDT", 1, "GBT   ", "G
                 })
             }
 
-            Device (UHC3)
+            Device (UHC3) // Rename from USB2
             {
                 Name (_ADR, 0x001D0002)
                 Method (_S3D, 0, NotSerialized)
@@ -3522,7 +3531,7 @@ DefinitionBlock ("/Users/tom/Desktop/ACPIDump/DSDT.aml", "DSDT", 1, "GBT   ", "G
                 })
             }
 
-            Device (UHC4)
+            Device (UHC4) // Rename from USB3
             {
                 Name (_ADR, 0x001A0000)
                 Method (_S3D, 0, NotSerialized)
@@ -3542,7 +3551,7 @@ DefinitionBlock ("/Users/tom/Desktop/ACPIDump/DSDT.aml", "DSDT", 1, "GBT   ", "G
                 })
             }
 
-            Device (UHC5)
+            Device (UHC5) // Rename from USB4
             {
                 Name (_ADR, 0x001A0001)
                 Method (_S3D, 0, NotSerialized)
@@ -3562,7 +3571,7 @@ DefinitionBlock ("/Users/tom/Desktop/ACPIDump/DSDT.aml", "DSDT", 1, "GBT   ", "G
                 })
             }
 
-            Device (UHC6)
+            Device (UHC6) // Rename from USB5
             {
                 Name (_ADR, 0x001A0002)
                 Method (_S3D, 0, NotSerialized)
@@ -3582,7 +3591,7 @@ DefinitionBlock ("/Users/tom/Desktop/ACPIDump/DSDT.aml", "DSDT", 1, "GBT   ", "G
                 })
             }
 
-            Device (EHC1)
+            Device (EHC1) // Rename from USBE
             {
                 Name (_ADR, 0x001D0007)
                 Method (_S3D, 0, NotSerialized)
@@ -3595,22 +3604,13 @@ DefinitionBlock ("/Users/tom/Desktop/ACPIDump/DSDT.aml", "DSDT", 1, "GBT   ", "G
                     Return (0x03)
                 }
 
-                Name (_PRW, Package (0x02)
-                {
-                    0x0D, 
-                    0x03
-                })
+                Name (_PRW, Package (0x02) { 0x0D, 0x03 })
+                // To fix EHCI wake up
                 OperationRegion (PWRC, PCI_Config, 0x52, 0x2F)
-                Field (PWRC, ByteAcc, NoLock, Preserve)
-                {
-                        ,   11, 
-                    PMES,   5, 
-                            Offset (0x2E), 
-                    WRTA,   1
-                }
+                Field (PWRC, ByteAcc, NoLock, Preserve) { , 11, PMES, 5, Offset (0x2E), WRTA, 1 }
             }
 
-            Device (EHC2)
+            Device (EHC2) // Rename from USE2
             {
                 Name (_ADR, 0x001A0007)
                 Method (_S3D, 0, NotSerialized)
@@ -3623,19 +3623,10 @@ DefinitionBlock ("/Users/tom/Desktop/ACPIDump/DSDT.aml", "DSDT", 1, "GBT   ", "G
                     Return (0x03)
                 }
 
-                Name (_PRW, Package (0x02)
-                {
-                    0x0D, 
-                    0x03
-                })
+                Name (_PRW, Package (0x02) { 0x0D, 0x03 })
+                // To fix EHCI wake up
                 OperationRegion (PWRC, PCI_Config, 0x52, 0x2F)
-                Field (PWRC, ByteAcc, NoLock, Preserve)
-                {
-                        ,   11, 
-                    PMES,   5, 
-                            Offset (0x2E), 
-                    WRTA,   1
-                }
+                Field (PWRC, ByteAcc, NoLock, Preserve) { , 11, PMES, 5, Offset (0x2E), WRTA, 1 }
             }
 
             Device (IDE1)
@@ -3663,14 +3654,19 @@ DefinitionBlock ("/Users/tom/Desktop/ACPIDump/DSDT.aml", "DSDT", 1, "GBT   ", "G
                     FAS0,   2, 
                     FAS1,   2
                 }
-
-                OperationRegion (IDET, PCI_Config, 0x40, 0x04)
+                
+                // IOATAFamily KP fix start
+                OperationRegion (IDET, PCI_Config, 0x40, 0x04) // IDE Timing Register
                 Field (IDET, WordAcc, NoLock, Preserve)
                 {
-                    M1,     8, 
-                    M2,     8, 
-                    M3,     8, 
-                    M4,     8
+                        Offset (0x00),
+                    M1, 8,
+                        Offset (0x01),
+                    M2, 8,
+                        Offset (0x02),
+                    M3, 8,
+                        Offset (0x03),
+                    M4, 8
                 }
 
                 Method (_DSM, 4, NotSerialized)
@@ -3681,6 +3677,7 @@ DefinitionBlock ("/Users/tom/Desktop/ACPIDump/DSDT.aml", "DSDT", 1, "GBT   ", "G
                     Store (0xC0, M4)
                     Return (Zero)
                 }
+                // IOATAFamily KP fix end
 
                 Device (PRIM)
                 {
@@ -3803,14 +3800,19 @@ DefinitionBlock ("/Users/tom/Desktop/ACPIDump/DSDT.aml", "DSDT", 1, "GBT   ", "G
                     FAS0,   2, 
                     FAS1,   2
                 }
-
-                OperationRegion (IDET, PCI_Config, 0x40, 0x04)
+                
+                // IOATAFamily KP fix start
+                OperationRegion (IDET, PCI_Config, 0x40, 0x04) // IDE Timing Register
                 Field (IDET, WordAcc, NoLock, Preserve)
                 {
-                    M1,     8, 
-                    M2,     8, 
-                    M3,     8, 
-                    M4,     8
+                        Offset (0x00),
+                    M1, 8,
+                        Offset (0x01),
+                    M2, 8,
+                        Offset (0x02),
+                    M3, 8,
+                        Offset (0x03),
+                    M4, 8
                 }
 
                 Method (_DSM, 4, NotSerialized)
@@ -3821,6 +3823,7 @@ DefinitionBlock ("/Users/tom/Desktop/ACPIDump/DSDT.aml", "DSDT", 1, "GBT   ", "G
                     Store (0xC0, M4)
                     Return (Zero)
                 }
+                // IOATAFamily KP fix end
 
                 Device (PRIM)
                 {
@@ -4508,7 +4511,7 @@ DefinitionBlock ("/Users/tom/Desktop/ACPIDump/DSDT.aml", "DSDT", 1, "GBT   ", "G
                             "layout-id", 
                             Buffer (0x04)
                             {
-                                0x0C, 0x00, 0x00, 0x00
+                                0x0c, 0x00, 0x00, 0x00
                             }, 
 
                             "PinConfigurations", 
@@ -4948,19 +4951,19 @@ DefinitionBlock ("/Users/tom/Desktop/ACPIDump/DSDT.aml", "DSDT", 1, "GBT   ", "G
                         0x00010000,         // Address Length
                         _Y09)
                 })
-                CreateDWordField (BUF0, \_SB.MEM._CRS._Y04._BAS, ACMM)
-                CreateDWordField (BUF0, \_SB.MEM._CRS._Y04._LEN, ASSM)
-                CreateDWordField (BUF0, \_SB.MEM._CRS._Y05._BAS, RMA1)
-                CreateDWordField (BUF0, \_SB.MEM._CRS._Y05._LEN, RSS1)
-                CreateDWordField (BUF0, \_SB.MEM._CRS._Y06._BAS, RMA2)
-                CreateDWordField (BUF0, \_SB.MEM._CRS._Y06._LEN, RSS2)
-                CreateDWordField (BUF0, \_SB.MEM._CRS._Y07._BAS, RMA3)
-                CreateDWordField (BUF0, \_SB.MEM._CRS._Y07._LEN, RSS3)
-                CreateDWordField (BUF0, \_SB.MEM._CRS._Y08._BAS, RMA4)
-                CreateDWordField (BUF0, \_SB.MEM._CRS._Y08._LEN, RSS4)
-                CreateDWordField (BUF0, \_SB.MEM._CRS._Y09._BAS, ERMA)
-                CreateDWordField (BUF0, \_SB.MEM._CRS._Y09._LEN, ERMS)
-                CreateDWordField (BUF0, \_SB.MEM._CRS._Y0A._LEN, EXTM)
+                CreateDWordField (BUF0, _Y04._BAS, ACMM)
+                CreateDWordField (BUF0, _Y04._LEN, ASSM)
+                CreateDWordField (BUF0, _Y05._BAS, RMA1)
+                CreateDWordField (BUF0, _Y05._LEN, RSS1)
+                CreateDWordField (BUF0, _Y06._BAS, RMA2)
+                CreateDWordField (BUF0, _Y06._LEN, RSS2)
+                CreateDWordField (BUF0, _Y07._BAS, RMA3)
+                CreateDWordField (BUF0, _Y07._LEN, RSS3)
+                CreateDWordField (BUF0, _Y08._BAS, RMA4)
+                CreateDWordField (BUF0, _Y08._LEN, RSS4)
+                CreateDWordField (BUF0, _Y09._BAS, ERMA)
+                CreateDWordField (BUF0, _Y09._LEN, ERMS)
+                CreateDWordField (BUF0, _Y0A._LEN, EXTM)
                 Subtract (AMEM, 0x00100000, EXTM)
                 If (LNotEqual (ROM1, Zero))
                 {
