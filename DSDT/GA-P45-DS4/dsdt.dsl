@@ -569,7 +569,6 @@ DefinitionBlock ("/Volumes/.USBBOOT/Extra/DSDT.aml", "DSDT", 1, "GBT   ", "GBTUA
         Method (_L0B, 0, NotSerialized)
         {
             Notify (\_SB.PCI0.HUB0, 0x02)
-            // Notify (\_SB.PCI0.HUB0.FRWR, 0x02)
         }
 
         Method (_L09, 0, NotSerialized)
