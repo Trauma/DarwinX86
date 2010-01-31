@@ -1,100 +1,82 @@
 /*
  * Intel ACPI Component Architecture
- * AML Disassembler version 20090903
+ * AML Disassembler version 20091214
  *
- * Disassembly of /Volumes/.USBBOOT/Extra/DSDT.aml, Thu Dec 10 23:04:17 2009
+ * Disassembly of /Users/tom/Desktop/ACPIDump/DSDT.aml, Sun Jan 31 17:11:13 2010
  *
  *
  * Original Table Header:
  *     Signature        "DSDT"
- *     Length           0x0000385B (14427)
+ *     Length           0x00003BA9 (15273)
  *     Revision         0x01 **** ACPI 1.0, no 64-bit math support
- *     Checksum         0xB4
+ *     Checksum         0xA8
  *     OEM ID           "GBT   "
  *     OEM Table ID     "GBTUACPI"
  *     OEM Revision     0x00001000 (4096)
  *     Compiler ID      "INTL"
- *     Compiler Version 0x20090903 (537463043)
+ *     Compiler Version 0x20091214 (537465364)
  */
-DefinitionBlock ("/Volumes/.USBBOOT/Extra/DSDT.aml", "DSDT", 1, "GBT   ", "GBTUACPI", 0x00001000)
+DefinitionBlock ("/Users/tom/Desktop/ACPIDump/DSDT.aml", "DSDT", 1, "GBT   ", "GBTUACPI", 0x00001000)
 {
-	External (CFGD)
-	
     Scope (_PR)
     {
         Processor (CPU0, 0x00, 0x00000410, 0x06)
         {
-        	Method (_CST, 0, NotSerialized)
-	        {	            
-	               Return (Package (0x05)
-	               {
-	                   0x04, 
-	                   Package (0x04)
-	                   {
-	                       ResourceTemplate ()
-	                       {
-	                           Register (FFixedHW, 
-	                               One,               // Bit Width
-	                               0x02,               // Bit Offset
-	                               0x0000000000000000, // Address
-	                               ,)
-	                       }, 
-	
-	                       One, 
-	                       One, 
-	                       0x03E8
-	                   }, 
-	
-	                   Package (0x04)
-	                   {
-	                       ResourceTemplate ()
-	                       {
-	                           Register (SystemIO, 
-	                               0x08,               // Bit Width
-	                               0x00,               // Bit Offset
-	                               0x0000000000000414, // Address
-	                               ,)
-	                       }, 
-	
-	                       0x02, 
-	                       One, 
-	                       0x01F4
-	                   }, 
-	
-	                   Package (0x04)
-	                   {
-	                       ResourceTemplate ()
-	                       {
-	                           Register (SystemIO, 
-	                               0x08,               // Bit Width
-	                               0x00,               // Bit Offset
-	                               0x0000000000000415, // Address
-	                               ,)
-	                       }, 
-	
-	                       0x03, 
-	                       0x55, 
-	                       0xFA
-	                   },    
-	                       
-	                   Package (0x04)
-	                   {
-	                       ResourceTemplate ()
-	                       {
-	                           Register (SystemIO, 
-	                               0x08,               // Bit Width
-	                               0x00,               // Bit Offset
-	                               0x0000000000000416, // Address
-	                               ,)
-	                       }, 
-	
-	                       0x03, 
-	                       0x96, 
-	                       0x64
-	                   }
-	               })
-	        }
-        		
+            Method (_CST, 0, NotSerialized)
+            {
+                Return (Package (0x04)
+                {
+                    0x03, 
+                    Package (0x04)
+                    {
+                        ResourceTemplate ()
+                        {
+                            Register (FFixedHW, 
+                                0x01,               // Bit Width
+                                0x02,               // Bit Offset
+                                0x0000000000000000, // Address
+                                ,)
+                        }, 
+
+                        One, 
+                        One, 
+                        0x03E8
+                    }, 
+
+                    Package (0x04)
+                    {
+                        ResourceTemplate ()
+                        {
+                            Register (SystemIO, 
+                                0x08,               // Bit Width
+                                0x00,               // Bit Offset
+                                0x0000000000000414, // Address
+                                ,)
+                        }, 
+
+                        0x02, 
+                        One, 
+                        0x01F4
+                    }, 
+
+                    Package (0x04)
+                    {
+                        ResourceTemplate ()
+                        {
+                            Register (SystemIO, 
+                                0x08,               // Bit Width
+                                0x00,               // Bit Offset
+                                0x0000000000000415, // Address
+                                ,)
+                        }, 
+
+                        0x03, 
+                        0x55, 
+                        0xFA
+                    }
+                })
+            }
+
             Name (_PCT, Package (0x02)
             {
                 ResourceTemplate ()
@@ -115,7 +97,6 @@ DefinitionBlock ("/Volumes/.USBBOOT/Extra/DSDT.aml", "DSDT", 1, "GBT   ", "GBTUA
                         ,)
                 }
             })
-
             Name (_PSS, Package (0x04)
             {
                 Package (0x06)
@@ -158,7 +139,6 @@ DefinitionBlock ("/Volumes/.USBBOOT/Extra/DSDT.aml", "DSDT", 1, "GBT   ", "GBTUA
                     0x0616
                 }
             })
-
             Name (_PSD, Package (One)
             {
                 Package (0x05)
@@ -170,7 +150,6 @@ DefinitionBlock ("/Volumes/.USBBOOT/Extra/DSDT.aml", "DSDT", 1, "GBT   ", "GBTUA
                     0x02
                 }
             })
-
             Method (_PPC, 0, NotSerialized)
             {
                 Return (Zero)
@@ -179,6 +158,7 @@ DefinitionBlock ("/Volumes/.USBBOOT/Extra/DSDT.aml", "DSDT", 1, "GBT   ", "GBTUA
 
         Processor (CPU1, 0x01, 0x00000410, 0x06)
         {
+            Alias (^CPU0._CST, _CST)
             Alias (^CPU0._PCT, _PCT)
             Alias (^CPU0._PSS, _PSS)
             Alias (^CPU0._PSD, _PSD)
@@ -300,7 +280,7 @@ DefinitionBlock ("/Volumes/.USBBOOT/Extra/DSDT.aml", "DSDT", 1, "GBT   ", "GBTUA
     OperationRegion (PMRS, SystemIO, 0x0430, One)
     Field (PMRS, ByteAcc, NoLock, Preserve)
     {
-            ,   4,
+            ,   4, 
         SLPE,   1
     }
 
@@ -371,9 +351,10 @@ DefinitionBlock ("/Volumes/.USBBOOT/Extra/DSDT.aml", "DSDT", 1, "GBT   ", "GBTUA
         Or (Arg0, 0xF0, Local0)
         Store (Local0, DBG1)
         OSTP ()
-        If (LEqual (Arg0, 0x05)) //Sleep Fix
+        If (LEqual (Arg0, One)) {}
+        If (LEqual (Arg0, 0x03)) {}
+        If (LEqual (Arg0, 0x05))
         {
-            Store (0x99, SMIP)
             Store (One, \_SB.PCI0.LPCB.AG3E)
             Store (Zero, SLPE)
             Sleep (0x10)
@@ -381,6 +362,14 @@ DefinitionBlock ("/Volumes/.USBBOOT/Extra/DSDT.aml", "DSDT", 1, "GBT   ", "GBTUA
         Else
         {
             Store (Zero, \_SB.PCI0.LPCB.AG3E)
+        }
+
+        If (LEqual (Arg0, 0x04))
+        {
+            If (LNot (PICF))
+            {
+                Sleep (0x64)
+            }
         }
     }
 
@@ -468,12 +457,12 @@ DefinitionBlock ("/Volumes/.USBBOOT/Extra/DSDT.aml", "DSDT", 1, "GBT   ", "GBTUA
             }
         }
 
-        Notify (\_SB.PCI0.USB0, Zero)
-        Notify (\_SB.PCI0.USB1, Zero)
-        Notify (\_SB.PCI0.USB2, Zero)
-        Notify (\_SB.PCI0.USB3, Zero)
-        Notify (\_SB.PCI0.USB4, Zero)
-        Notify (\_SB.PCI0.USB5, Zero)
+        Notify (\_SB.PCI0.UHC1, Zero)
+        Notify (\_SB.PCI0.UHC2, Zero)
+        Notify (\_SB.PCI0.UHC3, Zero)
+        Notify (\_SB.PCI0.UHC4, Zero)
+        Notify (\_SB.PCI0.UHC5, Zero)
+        Notify (\_SB.PCI0.UHC6, Zero)
         Return (Package (0x02)
         {
             Zero, 
@@ -485,12 +474,12 @@ DefinitionBlock ("/Volumes/.USBBOOT/Extra/DSDT.aml", "DSDT", 1, "GBT   ", "GBTUA
     {
         Method (_MSG, 1, NotSerialized)
         {
-            Store (Zero, Local0)
+            Store ("Local0", Local0)
         }
 
         Method (_SST, 1, NotSerialized)
         {
-            Store (Zero, Local0)
+            Store ("Local0", Local0)
         }
     }
 
@@ -503,44 +492,44 @@ DefinitionBlock ("/Volumes/.USBBOOT/Extra/DSDT.aml", "DSDT", 1, "GBT   ", "GBTUA
 
         Method (_L03, 0, NotSerialized)
         {
-            Notify (\_SB.PCI0.USB0, 0x02)
+            Notify (\_SB.PCI0.UHC1, 0x02)
             Notify (\_SB.PWRB, 0x02)
         }
 
         Method (_L04, 0, NotSerialized)
         {
-            Notify (\_SB.PCI0.USB1, 0x02)
+            Notify (\_SB.PCI0.UHC2, 0x02)
             Notify (\_SB.PWRB, 0x02)
         }
 
         Method (_L0C, 0, NotSerialized)
         {
-            Notify (\_SB.PCI0.USB2, 0x02)
+            Notify (\_SB.PCI0.UHC3, 0x02)
             Notify (\_SB.PWRB, 0x02)
         }
 
         Method (_L0E, 0, NotSerialized)
         {
-            Notify (\_SB.PCI0.USB3, 0x02)
+            Notify (\_SB.PCI0.UHC4, 0x02)
             Notify (\_SB.PWRB, 0x02)
         }
 
         Method (_L05, 0, NotSerialized)
         {
-            Notify (\_SB.PCI0.USB4, 0x02)
+            Notify (\_SB.PCI0.UHC5, 0x02)
             Notify (\_SB.PWRB, 0x02)
         }
 
         Method (_L20, 0, NotSerialized)
         {
-            Notify (\_SB.PCI0.USB5, 0x02)
+            Notify (\_SB.PCI0.UHC6, 0x02)
             Notify (\_SB.PWRB, 0x02)
         }
 
         Method (_L0D, 0, NotSerialized)
         {
-            Notify (\_SB.PCI0.USBE, 0x02)
-            Notify (\_SB.PCI0.USE2, 0x02)
+            Notify (\_SB.PCI0.EHC1, 0x02)
+            Notify (\_SB.PCI0.EHC2, 0x02)
             Notify (\_SB.PWRB, 0x02)
             Notify (\_SB.PCI0.HDEF, 0x02)
             Notify (\_SB.PCI0.IGBE, 0x02)
@@ -590,6 +579,16 @@ DefinitionBlock ("/Volumes/.USBBOOT/Extra/DSDT.aml", "DSDT", 1, "GBT   ", "GBTUA
 
     Scope (_SB)
     {
+        Method (_INI, 0, NotSerialized)
+        {
+            Store (One, ^PCI0.EHC1.WRTA)
+            Store (0x19, ^PCI0.EHC1.PMES)
+            Store (Zero, ^PCI0.EHC1.WRTA)
+            Store (One, ^PCI0.EHC2.WRTA)
+            Store (0x19, ^PCI0.EHC2.PMES)
+            Store (Zero, ^PCI0.EHC2.WRTA)
+        }
+
         Device (PWRB)
         {
             Name (_CID, EisaId ("PNP0C0C"))
@@ -682,8 +681,8 @@ DefinitionBlock ("/Volumes/.USBBOOT/Extra/DSDT.aml", "DSDT", 1, "GBT   ", "GBTUA
                         0xFFF00000,         // Length
                         ,, _Y00, AddressRangeMemory, TypeStatic)
                 })
-                CreateDWordField (BUF0, _Y00._MIN, TCMM)
-                CreateDWordField (BUF0, _Y00._LEN, TOMM)
+                CreateDWordField (BUF0, \_SB.PCI0._CRS._Y00._MIN, TCMM)
+                CreateDWordField (BUF0, \_SB.PCI0._CRS._Y00._LEN, TOMM)
                 Add (AMEM, 0x00040000, TCMM)
                 Add (TCMM, 0x00010000, TCMM)
                 Subtract (0xFEC00000, TCMM, TOMM)
@@ -1629,7 +1628,7 @@ DefinitionBlock ("/Volumes/.USBBOOT/Extra/DSDT.aml", "DSDT", 1, "GBT   ", "GBTUA
 
                 Device (LAN0)
                 {
-                    Name (_ADR, Zero)
+                    Name (_ADR, 0x03000000)
                     Method (_DSM, 4, NotSerialized)
                     {
                         Store (Package (0x02)
@@ -1986,6 +1985,37 @@ DefinitionBlock ("/Volumes/.USBBOOT/Extra/DSDT.aml", "DSDT", 1, "GBT   ", "GBTUA
                         0x05
                     })
                 }
+
+                Device (FRWR)
+                {
+                    Name (_ADR, 0x04060000)
+                    Name (_GPE, 0x0B)
+                    Method (_DSM, 4, NotSerialized)
+                    {
+                        Store (Package (0x06)
+                            {
+                                "built-in", 
+                                Buffer (One)
+                                {
+                                    0x00
+                                }, 
+
+                                "fwhub", 
+                                Buffer (0x04)
+                                {
+                                    0x00, 0x00, 0x00, 0x00
+                                }, 
+
+                                "device-id", 
+                                Buffer (0x04)
+                                {
+                                    0x3F, 0x82, 0x00, 0x00
+                                }
+                            }, Local0)
+                        DTGP (Arg0, Arg1, Arg2, Arg3, RefOf (Local0))
+                        Return (Local0)
+                    }
+                }
             }
 
             Device (LPCB)
@@ -2004,8 +2034,7 @@ DefinitionBlock ("/Volumes/.USBBOOT/Extra/DSDT.aml", "DSDT", 1, "GBT   ", "GBTUA
                     DTGP (Arg0, Arg1, Arg2, Arg3, RefOf (Local0))
                     Return (Local0)
                 }
-                
-                // Sleep Fix
+
                 OperationRegion (LPC0, PCI_Config, 0xA4, 0x02)
                 Field (LPC0, ByteAcc, NoLock, Preserve)
                 {
@@ -2402,7 +2431,7 @@ DefinitionBlock ("/Volumes/.USBBOOT/Extra/DSDT.aml", "DSDT", 1, "GBT   ", "GBTUA
                             0x00A0,             // Range Maximum
                             0x01,               // Alignment
                             0x02,               // Length
-                            ) 
+                            )
                     })
                 }
 
@@ -2451,6 +2480,8 @@ DefinitionBlock ("/Volumes/.USBBOOT/Extra/DSDT.aml", "DSDT", 1, "GBT   ", "GBTUA
                             0x00,               // Alignment
                             0x04,               // Length
                             )
+                        IRQNoFlags ()
+                            {0}
                     })
                     Name (ATT6, ResourceTemplate ()
                     {
@@ -2463,21 +2494,7 @@ DefinitionBlock ("/Volumes/.USBBOOT/Extra/DSDT.aml", "DSDT", 1, "GBT   ", "GBTUA
                     })
                     Method (_CRS, 0, NotSerialized)
                     {
-                        If (LGreaterEqual (OSFX, 0x03))
-                        {
-                            If (HPTF)
-                            {
-                                Return (ATT6)
-                            }
-                            Else
-                            {
-                                Return (ATT5)
-                            }
-                        }
-                        Else
-                        {
-                            Return (ATT5)
-                        }
+                        Return (ATT6)
                     }
                 }
 
@@ -2520,6 +2537,8 @@ DefinitionBlock ("/Volumes/.USBBOOT/Extra/DSDT.aml", "DSDT", 1, "GBT   ", "GBTUA
                             0x00,               // Alignment
                             0x02,               // Length
                             )
+                        IRQNoFlags ()
+                            {8}
                     })
                     Name (ATT1, ResourceTemplate ()
                     {
@@ -2715,9 +2734,9 @@ DefinitionBlock ("/Volumes/.USBBOOT/Extra/DSDT.aml", "DSDT", 1, "GBT   ", "GBTUA
                             DMA (Compatibility, NotBusMaster, Transfer8, )
                                 {2}
                         })
-                        CreateByteField (BUF0, _Y01._MIN, IOLO)
+                        CreateByteField (BUF0, \_SB.PCI0.LPCB.FDC0._CRS._Y01._MIN, IOLO)
                         CreateByteField (BUF0, 0x03, IOHI)
-                        CreateByteField (BUF0, _Y01._MAX, IORL)
+                        CreateByteField (BUF0, \_SB.PCI0.LPCB.FDC0._CRS._Y01._MAX, IORL)
                         CreateByteField (BUF0, 0x05, IORH)
                         ENFG ()
                         EXFG ()
@@ -2815,11 +2834,11 @@ DefinitionBlock ("/Volumes/.USBBOOT/Extra/DSDT.aml", "DSDT", 1, "GBT   ", "GBTUA
                             IRQNoFlags (_Y03)
                                 {}
                         })
-                        CreateByteField (BUF1, _Y02._MIN, IOLO)
+                        CreateByteField (BUF1, \_SB.PCI0.LPCB.UAR1._CRS._Y02._MIN, IOLO)
                         CreateByteField (BUF1, 0x03, IOHI)
-                        CreateByteField (BUF1, _Y02._MAX, IORL)
+                        CreateByteField (BUF1, \_SB.PCI0.LPCB.UAR1._CRS._Y02._MAX, IORL)
                         CreateByteField (BUF1, 0x05, IORH)
-                        CreateWordField (BUF1, _Y03._INT, IRQW)
+                        CreateWordField (BUF1, \_SB.PCI0.LPCB.UAR1._CRS._Y03._INT, IRQW)
                         ENFG ()
                         Store (One, LDN)
                         Store (IOAL, IOLO)
@@ -3443,7 +3462,7 @@ DefinitionBlock ("/Volumes/.USBBOOT/Extra/DSDT.aml", "DSDT", 1, "GBT   ", "GBTUA
                 })
             }
 
-            Device (USB0)
+            Device (UHC1)
             {
                 Name (_ADR, 0x001D0000)
                 Method (_S3D, 0, NotSerialized)
@@ -3463,7 +3482,7 @@ DefinitionBlock ("/Volumes/.USBBOOT/Extra/DSDT.aml", "DSDT", 1, "GBT   ", "GBTUA
                 })
             }
 
-            Device (USB1)
+            Device (UHC2)
             {
                 Name (_ADR, 0x001D0001)
                 Method (_S3D, 0, NotSerialized)
@@ -3483,7 +3502,7 @@ DefinitionBlock ("/Volumes/.USBBOOT/Extra/DSDT.aml", "DSDT", 1, "GBT   ", "GBTUA
                 })
             }
 
-            Device (USB2)
+            Device (UHC3)
             {
                 Name (_ADR, 0x001D0002)
                 Method (_S3D, 0, NotSerialized)
@@ -3503,7 +3522,7 @@ DefinitionBlock ("/Volumes/.USBBOOT/Extra/DSDT.aml", "DSDT", 1, "GBT   ", "GBTUA
                 })
             }
 
-            Device (USB3)
+            Device (UHC4)
             {
                 Name (_ADR, 0x001A0000)
                 Method (_S3D, 0, NotSerialized)
@@ -3523,7 +3542,7 @@ DefinitionBlock ("/Volumes/.USBBOOT/Extra/DSDT.aml", "DSDT", 1, "GBT   ", "GBTUA
                 })
             }
 
-            Device (USB4)
+            Device (UHC5)
             {
                 Name (_ADR, 0x001A0001)
                 Method (_S3D, 0, NotSerialized)
@@ -3543,7 +3562,7 @@ DefinitionBlock ("/Volumes/.USBBOOT/Extra/DSDT.aml", "DSDT", 1, "GBT   ", "GBTUA
                 })
             }
 
-            Device (USB5)
+            Device (UHC6)
             {
                 Name (_ADR, 0x001A0002)
                 Method (_S3D, 0, NotSerialized)
@@ -3563,7 +3582,7 @@ DefinitionBlock ("/Volumes/.USBBOOT/Extra/DSDT.aml", "DSDT", 1, "GBT   ", "GBTUA
                 })
             }
 
-            Device (USBE)
+            Device (EHC1)
             {
                 Name (_ADR, 0x001D0007)
                 Method (_S3D, 0, NotSerialized)
@@ -3581,28 +3600,17 @@ DefinitionBlock ("/Volumes/.USBBOOT/Extra/DSDT.aml", "DSDT", 1, "GBT   ", "GBTUA
                     0x0D, 
                     0x03
                 })
-                Method (_DSM, 4, NotSerialized)
+                OperationRegion (PWRC, PCI_Config, 0x52, 0x2F)
+                Field (PWRC, ByteAcc, NoLock, Preserve)
                 {
-                    Store (Package (0x04)
-                        {
-                            "AAPL,clock-id", 
-                            Buffer (One)
-                            {
-                                One
-                            }, 
-
-                            "device_type", 
-                            Buffer (0x05)
-                            {
-                                "EHCI"
-                            }
-                        }, Local0)
-                    DTGP (Arg0, Arg1, Arg2, Arg3, RefOf (Local0))
-                    Return (Local0)
+                        ,   11, 
+                    PMES,   5, 
+                            Offset (0x2E), 
+                    WRTA,   1
                 }
             }
 
-            Device (USE2)
+            Device (EHC2)
             {
                 Name (_ADR, 0x001A0007)
                 Method (_S3D, 0, NotSerialized)
@@ -3620,24 +3628,13 @@ DefinitionBlock ("/Volumes/.USBBOOT/Extra/DSDT.aml", "DSDT", 1, "GBT   ", "GBTUA
                     0x0D, 
                     0x03
                 })
-                Method (_DSM, 4, NotSerialized)
+                OperationRegion (PWRC, PCI_Config, 0x52, 0x2F)
+                Field (PWRC, ByteAcc, NoLock, Preserve)
                 {
-                    Store (Package (0x04)
-                        {
-                            "AAPL,clock-id", 
-                            Buffer (One)
-                            {
-                                0x02
-                            }, 
-
-                            "device_type", 
-                            Buffer (0x05)
-                            {
-                                "EHCI"
-                            }
-                        }, Local0)
-                    DTGP (Arg0, Arg1, Arg2, Arg3, RefOf (Local0))
-                    Return (Local0)
+                        ,   11, 
+                    PMES,   5, 
+                            Offset (0x2E), 
+                    WRTA,   1
                 }
             }
 
@@ -3665,6 +3662,24 @@ DefinitionBlock ("/Volumes/.USBBOOT/Extra/DSDT.aml", "DSDT", 1, "GBT   ", "GBTUA
                         ,   1, 
                     FAS0,   2, 
                     FAS1,   2
+                }
+
+                OperationRegion (IDET, PCI_Config, 0x40, 0x04)
+                Field (IDET, WordAcc, NoLock, Preserve)
+                {
+                    M1,     8, 
+                    M2,     8, 
+                    M3,     8, 
+                    M4,     8
+                }
+
+                Method (_DSM, 4, NotSerialized)
+                {
+                    Store (0x07, M1)
+                    Store (0xE3, M2)
+                    Store (Zero, M3)
+                    Store (0xC0, M4)
+                    Return (Zero)
                 }
 
                 Device (PRIM)
@@ -3787,6 +3802,24 @@ DefinitionBlock ("/Volumes/.USBBOOT/Extra/DSDT.aml", "DSDT", 1, "GBT   ", "GBTUA
                         ,   1, 
                     FAS0,   2, 
                     FAS1,   2
+                }
+
+                OperationRegion (IDET, PCI_Config, 0x40, 0x04)
+                Field (IDET, WordAcc, NoLock, Preserve)
+                {
+                    M1,     8, 
+                    M2,     8, 
+                    M3,     8, 
+                    M4,     8
+                }
+
+                Method (_DSM, 4, NotSerialized)
+                {
+                    Store (0x07, M1)
+                    Store (0xE3, M2)
+                    Store (Zero, M3)
+                    Store (0xC0, M4)
+                    Return (Zero)
                 }
 
                 Device (PRIM)
@@ -4475,7 +4508,7 @@ DefinitionBlock ("/Volumes/.USBBOOT/Extra/DSDT.aml", "DSDT", 1, "GBT   ", "GBTUA
                             "layout-id", 
                             Buffer (0x04)
                             {
-                                0x0c, 0x00, 0x00, 0x00
+                                0x0C, 0x00, 0x00, 0x00
                             }, 
 
                             "PinConfigurations", 
@@ -4915,19 +4948,19 @@ DefinitionBlock ("/Volumes/.USBBOOT/Extra/DSDT.aml", "DSDT", 1, "GBT   ", "GBTUA
                         0x00010000,         // Address Length
                         _Y09)
                 })
-                CreateDWordField (BUF0, _Y04._BAS, ACMM)
-                CreateDWordField (BUF0, _Y04._LEN, ASSM)
-                CreateDWordField (BUF0, _Y05._BAS, RMA1)
-                CreateDWordField (BUF0, _Y05._LEN, RSS1)
-                CreateDWordField (BUF0, _Y06._BAS, RMA2)
-                CreateDWordField (BUF0, _Y06._LEN, RSS2)
-                CreateDWordField (BUF0, _Y07._BAS, RMA3)
-                CreateDWordField (BUF0, _Y07._LEN, RSS3)
-                CreateDWordField (BUF0, _Y08._BAS, RMA4)
-                CreateDWordField (BUF0, _Y08._LEN, RSS4)
-                CreateDWordField (BUF0, _Y09._BAS, ERMA)
-                CreateDWordField (BUF0, _Y09._LEN, ERMS)
-                CreateDWordField (BUF0, _Y0A._LEN, EXTM)
+                CreateDWordField (BUF0, \_SB.MEM._CRS._Y04._BAS, ACMM)
+                CreateDWordField (BUF0, \_SB.MEM._CRS._Y04._LEN, ASSM)
+                CreateDWordField (BUF0, \_SB.MEM._CRS._Y05._BAS, RMA1)
+                CreateDWordField (BUF0, \_SB.MEM._CRS._Y05._LEN, RSS1)
+                CreateDWordField (BUF0, \_SB.MEM._CRS._Y06._BAS, RMA2)
+                CreateDWordField (BUF0, \_SB.MEM._CRS._Y06._LEN, RSS2)
+                CreateDWordField (BUF0, \_SB.MEM._CRS._Y07._BAS, RMA3)
+                CreateDWordField (BUF0, \_SB.MEM._CRS._Y07._LEN, RSS3)
+                CreateDWordField (BUF0, \_SB.MEM._CRS._Y08._BAS, RMA4)
+                CreateDWordField (BUF0, \_SB.MEM._CRS._Y08._LEN, RSS4)
+                CreateDWordField (BUF0, \_SB.MEM._CRS._Y09._BAS, ERMA)
+                CreateDWordField (BUF0, \_SB.MEM._CRS._Y09._LEN, ERMS)
+                CreateDWordField (BUF0, \_SB.MEM._CRS._Y0A._LEN, EXTM)
                 Subtract (AMEM, 0x00100000, EXTM)
                 If (LNotEqual (ROM1, Zero))
                 {
