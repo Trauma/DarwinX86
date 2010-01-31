@@ -569,6 +569,7 @@ DefinitionBlock ("/Volumes/.USBBOOT/Extra/DSDT.aml", "DSDT", 1, "GBT   ", "GBTUA
         Method (_L0B, 0, NotSerialized)
         {
             Notify (\_SB.PCI0.HUB0, 0x02)
+            Notify (\_SB.PCI0.HUB0.FRWR, 0x02)
         }
 
         Method (_L09, 0, NotSerialized)
@@ -1995,10 +1996,9 @@ DefinitionBlock ("/Volumes/.USBBOOT/Extra/DSDT.aml", "DSDT", 1, "GBT   ", "GBTUA
                 Device (FRWR)  // Added device for Texas Instruments TSB43AB23 IEEE-1394a-2000 Controller
                 {
                     Name (_ADR, 0x04060000)  // Reported by 'lspci'
-                    Name (_GPE, 0x0B)        // Callback to (_GPE) Method (_L0B) for (HUB0)
                     Method (_DSM, 4, NotSerialized)
                     {
-                        Store (Package (0x06)
+                        Store (Package (0x04)
                         {
                             "built-in",
                             Buffer (One)
@@ -2009,11 +2009,6 @@ DefinitionBlock ("/Volumes/.USBBOOT/Extra/DSDT.aml", "DSDT", 1, "GBT   ", "GBTUA
                             Buffer (0x04)
                             {
                                 0x00, 0x00, 0x00, 0x00
-                            },
-                            "device-id",
-                            Buffer (0x04)
-                            {
-                                0x3f, 0x82, 0x00, 0x00  // MacPro4,1 FireWire device-id
                             }
                         }, Local0)
                         DTGP (Arg0, Arg1, Arg2, Arg3, RefOf (Local0))
