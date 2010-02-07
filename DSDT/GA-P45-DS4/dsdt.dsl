@@ -2,7 +2,7 @@
  * Intel ACPI Component Architecture
  * AML Disassembler version 20090903
  *
- * Disassembly of /Volumes/.USBBOOT/Extra/DSDT.aml, Thu Dec 10 23:04:17 2009
+ * Disassembly of /Volumes/Chameleon/Extra/DSDT.aml, Thu Dec 10 23:04:17 2009
  *
  *
  * Original Table Header:
@@ -16,7 +16,7 @@
  *     Compiler ID      "INTL"
  *     Compiler Version 0x20090903 (537463043)
  */
-DefinitionBlock ("/Volumes/.USBBOOT/Extra/DSDT.aml", "DSDT", 1, "GBT   ", "GBTUACPI", 0x00001000)
+DefinitionBlock ("/Volumes/Chameleon/Extra/DSDT.aml", "DSDT", 1, "GBT   ", "GBTUACPI", 0x00001000)
 {    	
     Scope (_PR)
     {
@@ -1995,6 +1995,7 @@ DefinitionBlock ("/Volumes/.USBBOOT/Extra/DSDT.aml", "DSDT", 1, "GBT   ", "GBTUA
                 Device (FRWR)  // Added device for Texas Instruments TSB43AB23 IEEE-1394a-2000 Controller
                 {
                     Name (_ADR, 0x04060000)  // Reported by 'lspci'
+                    Name (_GPE, 0x0B)        // Callback to (_GPE) Method (_L0B) for (HUB0)
                     Method (_DSM, 4, NotSerialized)
                     {
                         Store (Package (0x04)
